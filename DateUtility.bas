@@ -48,11 +48,13 @@ Public Function ParseWithDateRange(ByVal Target As String, _
     ParseWithDateRange = Parse(Target, ThisWorkbook.Sheets(WSName).Range(DateRange))
 End Function
 
+
 Public Function ParseAndCheckWithDateRange(ByVal Target As String, _
                                    Optional ByVal DateRange As String = DateReferenceRange, _
                                    Optional ByVal WSName As String = DateReferenceWorksheet) As String
     ParseAndCheckWithDateRange = Check(ParseWithDateRange(Target, ThisWorkbook.Sheets(WSName).Range(DateRange)))
 End Function
+
 
 Public Function ParseRangeWithDateRange(ByVal TargetRange As String, _
                                    Optional ByVal DateRange As String = DateReferenceRange, _
@@ -61,11 +63,13 @@ Public Function ParseRangeWithDateRange(ByVal TargetRange As String, _
     ParseRangeWithDateRange = ParseWithDateRange(ThisWorkbook.Sheets(WSName).Range(TargetRange), ThisWorkbook.Sheets(WSName).Range(DateRange))
 End Function
 
+
 Public Function ParseRangeAndCheckWithDateRange(ByVal TargetRange As String, _
                                    Optional ByVal DateRange As String = DateReferenceRange, _
                                    Optional ByVal WSName As String = DateReferenceWorksheet) As String
     ParseRangeAndCheckWithDateRange = Check(ParseRangeWithDateRange(TargetRange, ThisWorkbook.Sheets(WSName).Range(DateRange)))
 End Function
+
 
 Public Function ParseRangeInFolderRangeAndCheckWithDateRange(ByVal TargetRange As String, _
                                    Optional ByVal FolderRange As String = "", _
