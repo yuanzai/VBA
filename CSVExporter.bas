@@ -1,7 +1,21 @@
 Option Explicit
+' ***** References required *****
+' 1.  Microsoft Scripting Runtime
 
+'****************************************** Worksheet to CSV file ********************************************
+' As opposed to saving the sheet in excel as a .csv file
+' This method will apply proper double quotes to strings and leave numeric cells as they are.
 
-Sub csvExporter(ByVal sht As Worksheet, ByVal path As String, ByVal header As Boolean, ParamArray forceText() As Variant)
+' Variables
+' sht - worksheet desired
+' export_path - path to export to, preferably .txt or .csv
+' hasHeader - self explanatory
+' forceText - forcibly converts the column to string ie. includes double quotes
+
+Sub CSVExporter(ByVal sht As Worksheet, _
+                ByVal export_path As String, _
+                ByVal hasHeader As Boolean, _
+                ParamArray forceText() As Variant)
     
     Dim lastRow As Long
     Dim lastCol As Long
@@ -24,7 +38,7 @@ Sub csvExporter(ByVal sht As Worksheet, ByVal path As String, ByVal header As Bo
     End If
     
     ReDim colTypeArray(1 To lastCol)
-    If header Then startRow = 2 Else startRow = 1
+    If hasHeader Then startRow = 2 Else startRow = 1
     For j = 1 To lastCol
         If UBound(forceText) > 0 Then
             For k = LBound(forceText) To UBound(forceText)
@@ -57,13 +71,12 @@ Continue:
     
     dataArray = sht.UsedRange
 
-    Set csvFile = fso.CreateTextFile(path, True)
-    
+    Set csvFile = fso.CreateTextFile(export_path, True)
     
     For i = 1 To lastRow
     line = ""
         For j = 1 To lastCol
-            If header And i = 1 Then
+            If hasHeader And i = 1 Then
                 If j = 1 Then line = """" & dataArray(i, j) & """"
                 If j > 1 Then line = line & ",""" & dataArray(i, j) & """"
             Else
